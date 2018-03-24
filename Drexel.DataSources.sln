@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".StyleCop", ".StyleCop", "{
 		.StyleCop\stylecop.json = .StyleCop\stylecop.json
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drexel.DataSources.FolderData", "Drexel.DataSources.FolderData\Drexel.DataSources.FolderData.csproj", "{7A6BB7FC-B9E9-40A7-8F11-6B96D91DD3FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{D411F355-052B-4603-8204-C7E5BA0FB741}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D411F355-052B-4603-8204-C7E5BA0FB741}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D411F355-052B-4603-8204-C7E5BA0FB741}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A6BB7FC-B9E9-40A7-8F11-6B96D91DD3FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A6BB7FC-B9E9-40A7-8F11-6B96D91DD3FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A6BB7FC-B9E9-40A7-8F11-6B96D91DD3FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A6BB7FC-B9E9-40A7-8F11-6B96D91DD3FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
