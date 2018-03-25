@@ -1,6 +1,4 @@
-﻿using Drexel.DataSources.External;
-
-namespace Drexel.DataSources.FolderData
+﻿namespace Drexel.DataSources.FolderData
 {
     /// <summary>
     /// Represents a factory which produces <see cref="IFolderDataWatcher"/>s.

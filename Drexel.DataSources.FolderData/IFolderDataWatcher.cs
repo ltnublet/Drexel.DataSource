@@ -18,7 +18,12 @@ namespace Drexel.DataSources.FolderData
         event EventHandler<IFolderDataChangeEventArgs> Changed;
 
         /// <summary>
-        /// Raised when teh change to the directory was triggered by a removal.
+        /// Raised when the change to the directory was triggered by a move.
+        /// </summary>
+        event EventHandler<IFolderDataChangeEventArgs> Moved;
+
+        /// <summary>
+        /// Raised when the change to the directory was triggered by a removal.
         /// </summary>
         event EventHandler<IFolderDataChangeEventArgs> Removed;
 

@@ -1,26 +1,25 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using Drexel.DataSources.External;
-using Drexel.Formats.External;
 
 namespace Drexel.DataSources.FolderData
 {
     /// <summary>
-    /// Represents an <see cref="IDataSource"/> implementation which uses a local directory as the backing data store.
+    /// Represents an <see cref="IDataSource{IFileInformation}"/> implementation which uses a local directory as the
+    /// backing data store.
     /// </summary>
-    public class FolderDataSource : IDataSource
+    public class FolderDataSource : IDataSource<IFileInformation>
     {
         private readonly IDirectoryInteractorFactory interactorFactory;
         private readonly IFolderDataWatcherFactory watcherFactory;
+        private readonly IFileInformationFactory fileInformationFactory;
 
         private IDirectoryInteractor interactor;
         private FilePath root;
         private IFolderDataWatcher watcher;
 
-        private Dictionary<FilePath, IDataInformation> files;
+        private Dictionary<FilePath, IFileInformation> files;
 
         private bool disposed;
         private object disposalLock;
@@ -28,13 +27,15 @@ namespace Drexel.DataSources.FolderData
         internal FolderDataSource(
             FilePath root,
             IFolderDataWatcherFactory watcherFactory = null,
-            IDirectoryInteractorFactory interactorFactory = null)
+            IDirectoryInteractorFactory interactorFactory = null,
+            IFileInformationFactory fileInformationFactory = null)
         {
-            this.files = new Dictionary<FilePath, IDataInformation>();
+            this.files = new Dictionary<FilePath, IFileInformation>();
             this.root = root;
 
             this.interactorFactory = interactorFactory ?? new DirectoryInteractorFactory();
             this.watcherFactory = watcherFactory ?? new FolderDataWatcherFactory();
+            this.fileInformationFactory = fileInformationFactory ?? new FileInformationFactory();
 
             this.interactor = this.interactorFactory.MakeInteractor();
             this.watcher = this.watcherFactory.MakeFolderDataWatcher(root);
@@ -54,6 +55,11 @@ namespace Drexel.DataSources.FolderData
                 this.Update(e);
                 this.OnChange.Invoke(obj, e);
             };
+            this.watcher.Moved += (obj, e) =>
+            {
+                this.Move(e);
+                this.OnChange.Invoke(obj, e);
+            };
             this.watcher.Removed += (obj, e) =>
             {
                 this.Remove(e);
@@ -62,14 +68,14 @@ namespace Drexel.DataSources.FolderData
 
             foreach (FilePath path in this.interactor.EnumerateFiles(this.root))
             {
-                this.files.Add(path, this.CreateIImageInformationFromPath(path));
+                this.files.Add(path, this.fileInformationFactory.FromPath(path));
             }
         }
 
         /// <summary>
         /// Raised when a change occurs within the underlying directory.
         /// </summary>
-        public event EventHandler<IDataSourceChangeEventArgs> OnChange;
+        public event EventHandler<IDataSourceChangeEventArgs<IFileInformation>> OnChange;
 
         /// <inheritdoc />
         public int Count => this.files.Count;
@@ -93,13 +99,13 @@ namespace Drexel.DataSources.FolderData
         }
 
         /// <inheritdoc />
-        public IEnumerator<IDataInformation> GetEnumerator()
+        public IEnumerator<IFileInformation> GetEnumerator()
         {
             return this.files.Select(x => x.Value).GetEnumerator();
         }
 
         /// <inheritdoc />
-        public IReadOnlyList<IDataSource> GetSubDataSources()
+        public IReadOnlyList<IDataSource<IFileInformation>> GetSubDataSources()
         {
             return this
                 .interactor
@@ -108,14 +114,16 @@ namespace Drexel.DataSources.FolderData
                 .ToList();
         }
 
-        private IDataInformation CreateIImageInformationFromPath(FilePath path)
-        {
-            return new Placeholder(path.Path);
-        }
-
         private void Add(IFolderDataChangeEventArgs args)
         {
-            this.files.Add(args.Path, args.GetImageInformation());
+            this.files.Add(args.Path, args.GetChange());
+        }
+
+        private void Move(IFolderDataChangeEventArgs args)
+        {
+            IFileInformation cached = this.files[args.OldPath];
+            this.files.Remove(args.OldPath);
+            this.files.Add(args.NewPath, cached);
         }
 
         private void Remove(IFolderDataChangeEventArgs args)
@@ -125,34 +133,12 @@ namespace Drexel.DataSources.FolderData
 
         private void Update(IFolderDataChangeEventArgs args)
         {
-            this.files[args.Path] = args.GetImageInformation();
+            this.files[args.Path] = args.GetChange();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
-        }
-
-        private class Placeholder : IDataInformation
-        {
-            public Placeholder(string name)
-            {
-                this.Name = name;
-            }
-
-            public DateTime Created => DateTime.UtcNow;
-
-            public DateTime LastModified => DateTime.UtcNow;
-
-            public string Name { get; private set; }
-
-            public bool TryOpen(out Stream stream, out Exception failureReason)
-            {
-                stream = null;
-                failureReason = new NotImplementedException();
-
-                return false;
-            }
         }
     }
 }

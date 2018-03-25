@@ -60,16 +60,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="FileInformation.cs" />
     <Compile Include="DirectoryInteractorFactory.cs" />
+    <Compile Include="FileInformationFactory.cs" />
     <Compile Include="FolderDataChangeEventArgs.cs" />
     <Compile Include="DirectoryInteractor.cs" />
     <Compile Include="FolderDataSource.cs" />
     <Compile Include="FolderDataSourceFactory.cs" />
     <Compile Include="FolderDataWatcher.cs" />
     <Compile Include="FolderDataWatcherFactory.cs" />
+    <Compile Include="IFileInformation.cs" />
     <Compile Include="IDirectoryInteractor.cs" />
     <Compile Include="IDirectoryInteractorFactory.cs" />
+    <Compile Include="IFileInformationFactory.cs" />
     <Compile Include="IFolderDataChangeEventArgs.cs" />
     <Compile Include="IFolderDataWatcher.cs" />
     <Compile Include="IFolderDataWatcherFactory.cs" />

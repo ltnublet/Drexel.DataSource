@@ -142,47 +142,11 @@ namespace Drexel.DataSources.FolderData.Internationalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Argument name &apos;{0}&apos; has conflicting requirements specified..
-        /// </summary>
-        internal static string FolderDataSourceFactoryConflictingRequirementsSpecified {
-            get {
-                return ResourceManager.GetString("FolderDataSourceFactoryConflictingRequirementsSpecified", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Argument name &apos;{0}&apos; does not have its dependencies fulfilled..
-        /// </summary>
-        internal static string FolderDataSourceFactoryDependenciesNotSatisfied {
-            get {
-                return ResourceManager.GetString("FolderDataSourceFactoryDependenciesNotSatisfied", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Incorrect number of requirements supplied. Expected {0}, got {1}..
         /// </summary>
         internal static string FolderDataSourceFactoryIncorrectNumberOfRequirements {
             get {
                 return ResourceManager.GetString("FolderDataSourceFactoryIncorrectNumberOfRequirements", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Missing required argument. Name: &apos;{0}&apos;..
-        /// </summary>
-        internal static string FolderDataSourceFactoryMissingRequirement {
-            get {
-                return ResourceManager.GetString("FolderDataSourceFactoryMissingRequirement", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Supplied requirements failed validation..
-        /// </summary>
-        internal static string FolderDataSourceFactoryRequirementsFailedValidation {
-            get {
-                return ResourceManager.GetString("FolderDataSourceFactoryRequirementsFailedValidation", resourceCulture);
             }
         }
         

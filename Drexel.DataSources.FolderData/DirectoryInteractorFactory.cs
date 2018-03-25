@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Drexel.DataSources.FolderData
+﻿namespace Drexel.DataSources.FolderData
 {
     /// <summary>
     /// Represents an <see cref="IDirectoryInteractorFactory"/> implementation which produces

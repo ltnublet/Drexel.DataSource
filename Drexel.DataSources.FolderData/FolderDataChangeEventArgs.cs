@@ -1,8 +1,5 @@
 ﻿using System;
 using System.IO;
-using Drexel.DataSources.External;
-using Drexel.DataSources.ReferenceImplementation;
-using Drexel.Formats.External;
 
 namespace Drexel.DataSources.FolderData
 {
@@ -29,8 +26,10 @@ namespace Drexel.DataSources.FolderData
                     this.EventType = DataSourceChangeEventType.Added;
                     break;
                 case WatcherChangeTypes.Changed:
-                case WatcherChangeTypes.Renamed:
                     this.EventType = DataSourceChangeEventType.Changed;
+                    break;
+                case WatcherChangeTypes.Renamed:
+                    this.EventType = DataSourceChangeEventType.Moved;
                     break;
                 case WatcherChangeTypes.Deleted:
                     this.EventType = DataSourceChangeEventType.Removed;
@@ -50,19 +49,15 @@ namespace Drexel.DataSources.FolderData
         public FilePath Path { get; private set; }
 
         /// <inheritdoc />
-        public IDataInformation GetImageInformation()
+        public IFileInformation GetChange()
         {
             FileInfo info = new FileInfo(this.Path.Path);
-            return new DataInformation(
-                this.name,
-                info.CreationTimeUtc,
-                () => info.LastWriteTimeUtc,
-                () => info.OpenRead());
+            return new FileInformation(this.Path);
         }
 
-        IDataInformation IDataSourceChangeEventArgs.GetImageInformation()
+        IFileInformation IDataSourceChangeEventArgs<IFileInformation>.GetChange()
         {
-            return this.GetImageInformation();
+            return this.GetChange();
         }
     }
 }

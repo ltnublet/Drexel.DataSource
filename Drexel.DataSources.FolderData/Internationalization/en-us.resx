@@ -144,20 +144,8 @@
   <data name="FilterName" xml:space="preserve">
     <value>Watched Directory File Filter</value>
   </data>
-  <data name="FolderDataSourceFactoryConflictingRequirementsSpecified" xml:space="preserve">
-    <value>Argument name '{0}' has conflicting requirements specified.</value>
-  </data>
-  <data name="FolderDataSourceFactoryDependenciesNotSatisfied" xml:space="preserve">
-    <value>Argument name '{0}' does not have its dependencies fulfilled.</value>
-  </data>
   <data name="FolderDataSourceFactoryIncorrectNumberOfRequirements" xml:space="preserve">
     <value>Incorrect number of requirements supplied. Expected {0}, got {1}.</value>
-  </data>
-  <data name="FolderDataSourceFactoryMissingRequirement" xml:space="preserve">
-    <value>Missing required argument. Name: '{0}'.</value>
-  </data>
-  <data name="FolderDataSourceFactoryRequirementsFailedValidation" xml:space="preserve">
-    <value>Supplied requirements failed validation.</value>
   </data>
   <data name="RootPathDescription" xml:space="preserve">
     <value>The path to the root directory.</value>

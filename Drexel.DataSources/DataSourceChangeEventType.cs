@@ -7,6 +7,7 @@
     {
         private const string AddedName = "Added";
         private const string ChangedName = "Changed";
+        private const string MovedName = "Moved";
         private const string RemovedName = "Removed";
 
         private string name;
@@ -25,6 +26,11 @@
         /// Indicates that the associated <see cref="IDataSourceChangeEventArgs{T}"/> was triggered by a change.
         /// </summary>
         public static DataSourceChangeEventType Changed { get; } = new DataSourceChangeEventType(ChangedName);
+
+        /// <summary>
+        /// Indicates that the associated <see cref="IDataSourceChangeEventArgs{T}"/> was triggered by a move.
+        /// </summary>
+        public static DataSourceChangeEventType Moved { get; } = new DataSourceChangeEventType(MovedName);
 
         /// <summary>
         /// Indicates that the associated <see cref="IDataSourceChangeEventArgs{T}"/> was triggered by a removal.
@@ -61,7 +67,8 @@
         {
             const int added = 0;
             const int changed = 1;
-            const int removed = 2;
+            const int moved = 2;
+            const int removed = 3;
             const int unknown = -1;
 
             if (this.Equals(DataSourceChangeEventType.Added))
@@ -71,6 +78,10 @@
             else if (this.Equals(DataSourceChangeEventType.Changed))
             {
                 return changed;
+            }
+            else if (this.Equals(DataSourceChangeEventType.Moved))
+            {
+                return moved;
             }
             else if (this.Equals(DataSourceChangeEventType.Removed))
             {

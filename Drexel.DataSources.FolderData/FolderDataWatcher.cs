@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Reactive.Linq;
-using Drexel.DataSources.External;
 
 namespace Drexel.DataSources.FolderData
 {
@@ -69,7 +68,7 @@ namespace Drexel.DataSources.FolderData
             this.FileSystemWatcher.Deleted +=
                 (obj, e) => this.Removed.Invoke(obj, new FolderDataChangeEventArgs(e));
             this.FileSystemWatcher.Renamed +=
-                (obj, e) => this.Changed.Invoke(obj, new FolderDataChangeEventArgs(e));
+                (obj, e) => this.Moved.Invoke(obj, new FolderDataChangeEventArgs(e));
         }
 
         /// <inheritdoc />
@@ -135,6 +134,9 @@ namespace Drexel.DataSources.FolderData
 
         /// <inheritdoc />
         public event EventHandler<IFolderDataChangeEventArgs> Changed;
+
+        /// <inheritdoc />
+        public event EventHandler<IFolderDataChangeEventArgs> Moved;
 
         /// <inheritdoc />
         public event EventHandler<IFolderDataChangeEventArgs> Removed;

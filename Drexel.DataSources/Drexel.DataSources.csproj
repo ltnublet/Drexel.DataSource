@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Binding.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="ConfigurationRequirement.cs" />
     <Compile Include="ConfigurationRequirementType.cs" />
     <Compile Include="DataSourceChangeEventType.cs" />
