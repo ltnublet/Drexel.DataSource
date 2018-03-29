@@ -13,6 +13,11 @@ namespace Drexel.DataSources.FolderData
         private Func<DateTime> lastWriteTime;
         private Func<Stream> openRead;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Design",
+            "CA1062:Validate arguments of public methods",
+            MessageId = "0",
+            Justification = "A FilePath should not be instantiated with an invalid path.")]
         public FileInformation(FilePath path)
         {
             if (path == null)
