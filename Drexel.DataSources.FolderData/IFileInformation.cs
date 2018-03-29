@@ -29,18 +29,23 @@ namespace Drexel.DataSources.FolderData
         DateTime? LastModified { get; }
 
         /// <summary>
-        /// Tries to open the file.
+        /// Tries to read the file.
         /// </summary>
         /// <param name="stream">
-        /// <see langword="null"/> if the file could not be opened; otherwise, a <see cref="Stream"/> by which to
+        /// <see langword="null"/> if the file could not be read; otherwise, a <see cref="Stream"/> by which to
         /// access the file contents.
         /// </param>
         /// <param name="failureReason">
-        /// <see langword="null"/> if the file was successfully opened; <see langword="null"/> otherwise.
+        /// <see langword="null"/> if the file was successfully read; <see langword="null"/> otherwise.
         /// </param>
         /// <returns>
-        /// <see langword="true"/> if the file was sucessfully opened; <see langword="false"/> otherwise.
+        /// <see langword="true"/> if the file was sucessfully read; <see langword="false"/> otherwise.
         /// </returns>
-        bool TryOpen(out Stream stream, out Exception failureReason);
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Design",
+            "CA1021:AvoidOutParameters",
+            MessageId = "0#",
+            Justification = "It is a Try method.")]
+        bool TryRead(out Stream stream, out Exception failureReason);
     }
 }

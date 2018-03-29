@@ -10,21 +10,37 @@ namespace Drexel.DataSources.FolderData
         /// <summary>
         /// Raised when the change to the directory was triggered by an addition.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Design",
+            "CA1009:DeclareEventHandlersCorrectly",
+            Justification = "By design.")]
         event EventHandler<IFolderDataChangeEventArgs> Added;
 
         /// <summary>
         /// Raised when the change to the directory was triggered by a change.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Design",
+            "CA1009:DeclareEventHandlersCorrectly",
+            Justification = "By design.")]
         event EventHandler<IFolderDataChangeEventArgs> Changed;
 
         /// <summary>
         /// Raised when the change to the directory was triggered by a move.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Design",
+            "CA1009:DeclareEventHandlersCorrectly",
+            Justification = "By design.")]
         event EventHandler<IFolderDataChangeEventArgs> Moved;
 
         /// <summary>
         /// Raised when the change to the directory was triggered by a removal.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Design",
+            "CA1009:DeclareEventHandlersCorrectly",
+            Justification = "By design.")]
         event EventHandler<IFolderDataChangeEventArgs> Removed;
 
         /// <summary>

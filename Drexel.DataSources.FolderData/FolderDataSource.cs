@@ -9,7 +9,11 @@ namespace Drexel.DataSources.FolderData
     /// Represents an <see cref="IDataSource{IFileInformation}"/> implementation which uses a local directory as the
     /// backing data store.
     /// </summary>
-    public class FolderDataSource : IDataSource<IFileInformation>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+        "Microsoft.Naming",
+        "CA1710:IdentifiersShouldHaveCorrectSuffix",
+        Justification = "Naming convention is DataSource.")]
+    public sealed class FolderDataSource : IDataSource<IFileInformation>
     {
         private readonly IDirectoryInteractorFactory interactorFactory;
         private readonly IFolderDataWatcherFactory watcherFactory;
@@ -121,9 +125,10 @@ namespace Drexel.DataSources.FolderData
 
         private void Move(IFolderDataChangeEventArgs args)
         {
-            IFileInformation cached = this.files[args.OldPath];
-            this.files.Remove(args.OldPath);
-            this.files.Add(args.NewPath, cached);
+            ////IFileInformation cached = this.files[args.OldPath];
+            ////this.files.Remove(args.OldPath);
+            ////this.files.Add(args.NewPath, cached);
+            throw new NotImplementedException();
         }
 
         private void Remove(IFolderDataChangeEventArgs args)

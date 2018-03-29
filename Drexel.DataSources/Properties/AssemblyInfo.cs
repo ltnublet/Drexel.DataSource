@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Drexel DataSources Library")]
@@ -6,6 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("Drexel")]
 [assembly: AssemblyCopyright("Copyright © 2018")]
 
+[assembly: CLSCompliant(true)]
 [assembly: ComVisible(false)]
 
 [assembly: AssemblyVersion("0.1.*")]

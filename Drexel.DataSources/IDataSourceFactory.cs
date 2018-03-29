@@ -15,15 +15,15 @@ namespace Drexel.DataSources
         /// Produces an <see cref="IDataSource{T}"/> instance using the supplied <paramref name="configuration"/>.
         /// </summary>
         /// <param name="configuration">
-        /// The <see cref="IConfiguration"/> to use when producing the <see cref="IDataSource{T}"/>.
+        /// The <see cref="IBoundConfiguration"/> to use when producing the <see cref="IDataSource{T}"/>.
         /// </param>
         /// <returns>
         /// An <see cref="IDataSource{T}"/> produced from the supplied <paramref name="configuration"/>.
         /// </returns>
         /// <exception cref="ArgumentException">
-        /// Occurs when the supplied <see cref="IConfiguration"/> <paramref name="configuration"/> cannot be used by
+        /// Occurs when the supplied <see cref="IBoundConfiguration"/> <paramref name="configuration"/> cannot be used by
         /// this <see cref="IDataSourceFactory{T}"/> to generate an <see cref="IDataSource{T}"/>.
         /// </exception>
-        IDataSource<T> MakeDataSource(IConfiguration configuration);
+        IDataSource<T> MakeDataSource(IBoundConfiguration configuration);
     }
 }

@@ -34,6 +34,10 @@ namespace Drexel.DataSources.FolderData
         /// Note that can cause valid change events to be dropped - for example, if two files are both changed within
         /// the specified number of ticks, one of the changes will not raise an event.
         /// </param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Usage",
+            "CA2214:DoNotCallOverridableMethodsInConstructors",
+            Justification = "Derived types are expected to overload the properties appropriately.")]
         public FolderDataWatcher(FilePath path, string filter = null, long changeFilterTicks = 0L)
         {
             this.Path = path;
@@ -144,16 +148,28 @@ namespace Drexel.DataSources.FolderData
         /// <inheritdoc />
         public void Dispose()
         {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing">
+        /// <see langword="true"/> to release both managed and unmanaged resources; <see langword="false"/> to release
+        /// only unmanaged resources.
+        /// </param>
+        protected virtual void Dispose(bool disposing)
+        {
             lock (this.disposalLock)
             {
-                if (!this.disposed)
+                if (disposing && !this.disposed)
                 {
                     this.disposed = true;
 
                     this.Added = null;
                     this.Changed = null;
                     this.Removed = null;
-
                     this.FileSystemWatcher.Dispose();
                 }
             }

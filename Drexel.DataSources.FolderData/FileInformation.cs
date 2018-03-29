@@ -15,7 +15,15 @@ namespace Drexel.DataSources.FolderData
 
         public FileInformation(FilePath path)
         {
+            if (path == null)
+            {
+                throw new ArgumentNullException(nameof(path));
+            }
+
             FileInfo info = new FileInfo(path.Path);
+
+            this.Name = info.Name;
+            this.Path = new FilePath(info.FullName);
             this.creationTime = () => info.CreationTimeUtc;
             this.lastWriteTime = () => info.LastWriteTimeUtc;
             this.openRead = () => info.OpenRead();
@@ -29,7 +37,11 @@ namespace Drexel.DataSources.FolderData
 
         public DateTime? LastModified => this.lastWriteTime();
 
-        public bool TryOpen(out Stream stream, out Exception failureReason)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Design",
+            "CA1031:DoNotCatchGeneralExceptionTypes",
+            Justification = "By design.")]
+        public bool TryRead(out Stream stream, out Exception failureReason)
         {
             try
             {

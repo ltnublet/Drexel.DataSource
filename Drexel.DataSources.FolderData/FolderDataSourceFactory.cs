@@ -55,8 +55,13 @@ namespace Drexel.DataSources.FolderData
         public IReadOnlyList<IConfigurationRequirement> Requirements => FolderDataSourceFactory.requirements;
 
         /// <inheritdoc />
-        public IDataSource<IFileInformation> MakeDataSource(IConfiguration configuration)
+        public IDataSource<IFileInformation> MakeDataSource(IBoundConfiguration configuration)
         {
+            if (configuration == null)
+            {
+                throw new ArgumentNullException(nameof(configuration));
+            }
+
             IFolderDataWatcherFactory factory =
                 (IFolderDataWatcherFactory)(configuration.GetOrDefault(
                     FolderDataSourceFactory.watcherFactory,
@@ -71,9 +76,9 @@ namespace Drexel.DataSources.FolderData
         }
 
         /// <inheritdoc />
-        public IConfiguration Configure(IReadOnlyDictionary<IConfigurationRequirement, object> bindings)
+        public IBoundConfiguration Configure(IReadOnlyDictionary<IConfigurationRequirement, object> bindings)
         {
-            return new Configuration(this, bindings);
+            return new BoundConfiguration(this, bindings);
         }
 
         private static Exception CheckTypeMatch(Type expected, object actualInstance)

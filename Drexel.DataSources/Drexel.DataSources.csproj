@@ -51,14 +51,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Binding.cs" />
-    <Compile Include="Configuration.cs" />
+    <Compile Include="BoundConfiguration.cs" />
     <Compile Include="ConfigurationRequirement.cs" />
     <Compile Include="ConfigurationRequirementType.cs" />
     <Compile Include="DataSourceChangeEventType.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IBinding.cs" />
     <Compile Include="IConfigurable.cs" />
-    <Compile Include="IConfiguration.cs" />
+    <Compile Include="IBoundConfiguration.cs" />
     <Compile Include="IDataSourceChangeEventArgs.cs" />
     <Compile Include="IConfigurationRequirement.cs" />
     <Compile Include="IDataSource.cs" />
@@ -76,6 +76,10 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\.StyleCop\CodeAnalysisDictionary.xml">
+      <Link>CodeAnalysisDictionary.xml</Link>
+    </CodeAnalysisDictionary>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

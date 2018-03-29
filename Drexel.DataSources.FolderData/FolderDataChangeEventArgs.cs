@@ -7,10 +7,12 @@ namespace Drexel.DataSources.FolderData
     /// Represents an <see cref="IFolderDataChangeEventArgs"/> implementation which wraps
     /// <see cref="FileSystemEventArgs"/>.
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+        "Microsoft.Naming",
+        "CA1711:IdentifiersShouldNotHaveIncorrectSuffix",
+        Justification = "Suffix is correct.")]
     public class FolderDataChangeEventArgs : IFolderDataChangeEventArgs
     {
-        private string name;
-
         /// <summary>
         /// Instantiates a new <see cref="FolderDataChangeEventArgs"/> wrapping the supplied
         /// <see cref="FileSystemEventArgs"/> <paramref name="e"/>.
@@ -20,6 +22,11 @@ namespace Drexel.DataSources.FolderData
         /// </param>
         public FolderDataChangeEventArgs(FileSystemEventArgs e)
         {
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
             switch (e.ChangeType)
             {
                 case WatcherChangeTypes.Created:
@@ -38,7 +45,7 @@ namespace Drexel.DataSources.FolderData
                     throw new NotImplementedException();
             }
 
-            this.name = e.Name;
+            this.Name = e.Name;
             this.Path = new FilePath(e.FullPath);
         }
 
@@ -46,12 +53,18 @@ namespace Drexel.DataSources.FolderData
         public DataSourceChangeEventType EventType { get; private set; }
 
         /// <inheritdoc />
+        public string Name { get; private set; }
+
+        /// <inheritdoc />
         public FilePath Path { get; private set; }
 
         /// <inheritdoc />
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Design",
+            "CA1024:UsePropertiesWhereAppropriate",
+            Justification = "This method does work, and thus shouldn't be a property.")]
         public IFileInformation GetChange()
         {
-            FileInfo info = new FileInfo(this.Path.Path);
             return new FileInformation(this.Path);
         }
 

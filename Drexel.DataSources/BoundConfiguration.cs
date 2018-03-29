@@ -6,10 +6,11 @@ using System.Linq;
 namespace Drexel.DataSources
 {
     /// <summary>
-    /// A simple implementation of <see cref="IConfiguration"/>.
+    /// A simple implementation of <see cref="IBoundConfiguration"/>.
     /// </summary>
-    public class Configuration : IConfiguration
+    public class BoundConfiguration : IBoundConfiguration
     {
+        private const string ConfigurableRequirementsMustNotBeNull = "Configuration requirements must not be null.";
         private const string MissingRequirement = "Missing required argument. Name: '{0}'.";
         private const string DependenciesNotSatisfied = "Argument name '{0}' does not have its dependencies fulfilled.";
         private const string ConflictingRequirementsSpecified = "Argument name '{0}' has conflicting requirements specified.";
@@ -19,7 +20,7 @@ namespace Drexel.DataSources
         private Lazy<IBinding[]> backingBindings;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Configuration"/> class.
+        /// Initializes a new instance of the <see cref="BoundConfiguration"/> class.
         /// </summary>
         /// <param name="configurable">
         /// The configurable.
@@ -35,13 +36,25 @@ namespace Drexel.DataSources
         /// <see cref="AggregateException.InnerExceptions"/> are the specific reasons the <paramref name="bindings"/>
         /// were invalid.
         /// </exception>
-        public Configuration(
+        public BoundConfiguration(
             IConfigurable configurable,
             IReadOnlyDictionary<IConfigurationRequirement, object> bindings)
         {
+            if (configurable == null)
+            {
+                throw new ArgumentNullException(nameof(configurable));
+            }
+
             if (bindings == null)
             {
                 throw new ArgumentNullException(nameof(bindings));
+            }
+
+            if (configurable.Requirements == null)
+            {
+                throw new ArgumentException(
+                    BoundConfiguration.ConfigurableRequirementsMustNotBeNull,
+                    nameof(configurable));
             }
 
             List<Exception> failures = new List<Exception>();
@@ -55,7 +68,7 @@ namespace Drexel.DataSources
                         new ArgumentException(
                             string.Format(
                                 CultureInfo.InvariantCulture,
-                                Configuration.MissingRequirement,
+                                BoundConfiguration.MissingRequirement,
                                 requirement.Name)));
                 }
                 else if (present)
@@ -83,7 +96,7 @@ namespace Drexel.DataSources
                     new ArgumentException(
                         string.Format(
                             CultureInfo.InvariantCulture,
-                            Configuration.DependenciesNotSatisfied,
+                            BoundConfiguration.DependenciesNotSatisfied,
                             pair.Key.Name)));
             }
 
@@ -97,14 +110,14 @@ namespace Drexel.DataSources
                     new ArgumentException(
                         string.Format(
                             CultureInfo.InvariantCulture,
-                            Configuration.ConflictingRequirementsSpecified,
+                            BoundConfiguration.ConflictingRequirementsSpecified,
                             pair.Key.Name)));
             }
 
             if (failures.Any())
             {
                 throw new AggregateException(
-                    Configuration.RequirementsFailedValidation,
+                    BoundConfiguration.RequirementsFailedValidation,
                     failures);
             }
 
@@ -121,6 +134,11 @@ namespace Drexel.DataSources
         /// <inheritdoc />
         public object GetOrDefault(IConfigurationRequirement requirement, Func<object> defaultValueFactory)
         {
+            if (defaultValueFactory == null)
+            {
+                throw new ArgumentNullException(nameof(defaultValueFactory));
+            }
+
             if (!this.backingDictionary.TryGetValue(requirement, out object result))
             {
                 result = defaultValueFactory.Invoke();
