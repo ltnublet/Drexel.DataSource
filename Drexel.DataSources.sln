@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drexel.DataSources.FolderDa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drexel.DataSources.FolderData.Tests", "Drexel.DataSources.FolderData.Tests\Drexel.DataSources.FolderData.Tests.csproj", "{1501275C-DF47-4F9D-BF2A-F407A4871257}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drexel.DataSources.Tests", "Drexel.DataSources.Tests\Drexel.DataSources.Tests.csproj", "{94E574E7-54AD-4376-BF94-ECC97A9D0F16}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{1501275C-DF47-4F9D-BF2A-F407A4871257}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1501275C-DF47-4F9D-BF2A-F407A4871257}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1501275C-DF47-4F9D-BF2A-F407A4871257}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94E574E7-54AD-4376-BF94-ECC97A9D0F16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94E574E7-54AD-4376-BF94-ECC97A9D0F16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94E574E7-54AD-4376-BF94-ECC97A9D0F16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94E574E7-54AD-4376-BF94-ECC97A9D0F16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

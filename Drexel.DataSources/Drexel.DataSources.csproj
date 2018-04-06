@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Binding.cs" />
     <Compile Include="BoundConfiguration.cs" />
+    <Compile Include="CompositeDataSource.cs" />
     <Compile Include="ConfigurationRequirement.cs" />
     <Compile Include="ConfigurationRequirementType.cs" />
     <Compile Include="DataSourceChangeEventType.cs" />
