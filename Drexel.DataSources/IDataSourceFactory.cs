@@ -10,6 +10,7 @@ namespace Drexel.DataSources
     /// contain.
     /// </typeparam>
     public interface IDataSourceFactory<T> : IConfigurable
+        where T : IUniquelyIdentifiable
     {
         /// <summary>
         /// Produces an <see cref="IDataSource{T}"/> instance using the supplied <paramref name="configuration"/>.

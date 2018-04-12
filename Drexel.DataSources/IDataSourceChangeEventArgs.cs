@@ -12,7 +12,8 @@ namespace Drexel.DataSources
         "Microsoft.Naming",
         "CA1711:IdentifiersShouldNotHaveIncorrectSuffix",
         Justification = "Implementors of this interface are expected to be used in place of a concrete EventArgs implementation.")]
-    public interface IDataSourceChangeEventArgs<T>
+    public interface IDataSourceChangeEventArgs<out T>
+        where T : IUniquelyIdentifiable
     {
         /// <summary>
         /// The type of the change.

@@ -14,6 +14,7 @@ namespace Drexel.DataSources
         "CA1710:IdentifiersShouldHaveCorrectSuffix",
         Justification = "Implements additional behavior beyond being a simple collection.")]
     public interface IDataSource<T> : IEnumerable<T>, IDisposable
+        where T : IUniquelyIdentifiable
     {
         /// <summary>
         /// Indicates that the underlying data source has had a change applied to it.

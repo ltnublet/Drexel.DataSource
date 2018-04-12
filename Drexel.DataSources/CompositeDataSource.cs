@@ -17,6 +17,7 @@ namespace Drexel.DataSources
         "CA1710:IdentifiersShouldHaveCorrectSuffix",
         Justification = "Implements additional behavior beyond being a simple collection.")]
     public class CompositeDataSource<T> : IDataSource<T>, IEnumerable<IDataSource<T>>
+        where T : IUniquelyIdentifiable
     {
         private IList<IDataSource<T>> dataSources;
 

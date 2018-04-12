@@ -20,6 +20,8 @@ namespace Drexel.DataSources
         "CA1710:IdentifiersShouldHaveCorrectSuffix",
         Justification = "Suffix is correct.")]
     public class TransformDataSource<TFrom, TTo> : IDataSource<TTo>
+        where TTo : IUniquelyIdentifiable
+        where TFrom : IUniquelyIdentifiable
     {
         private object cacheLock;
         private IDataSource<TFrom> backingSource;

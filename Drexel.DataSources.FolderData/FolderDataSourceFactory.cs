@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Drexel.DataSources.FolderData.Internationalization;
 
 namespace Drexel.DataSources.FolderData
 {
