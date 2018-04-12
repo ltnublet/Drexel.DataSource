@@ -9,11 +9,11 @@ namespace Drexel.DataSources
     public enum ComparisonResults
     {
         /// <summary>
-        /// Indicates that the comparison resulted in an exact match.
+        /// Indicates that the compared instances were different.
         /// </summary>
-        [Obsolete("An exact match is also equivalent, so ComparisonResults.Match should be used instead.")]
-        ExactMatch = 1,
+        Different = 8,
 
+#pragma warning disable CS0618 // Equivalent is marked as obsolete to dissuade external callers.
         /// <summary>
         /// Indicates that the compared instances were different, but considered equivalent. The meaning of
         /// "equivalent" will vary depending on the implementation of the
@@ -26,6 +26,19 @@ namespace Drexel.DataSources
         /// > true
         /// </code>
         /// </example>
+        DifferentButEquivalent = ComparisonResults.Different | ComparisonResults.Equivalent,
+#pragma warning restore CS0618
+
+        /// <summary>
+        /// Indicates that the comparison resulted in an exact match.
+        /// </summary>
+        [Obsolete("An exact match is also equivalent, so ComparisonResults.Match should be used instead.")]
+        ExactMatch = 1,
+
+        /// <summary>
+        /// Indicates that the compared instances were considered equivalent.
+        /// </summary>
+        [Obsolete("If something isn't an exact match, but is equivalent, then it is also Different. Use ComparisonResults.DifferentButEquivalent.")]
         Equivalent = 2,
 
 #pragma warning disable CS0618 // Exact is marked as obsolete to dissuade external callers.

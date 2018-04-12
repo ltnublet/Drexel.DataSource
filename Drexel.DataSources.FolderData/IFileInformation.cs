@@ -6,7 +6,7 @@ namespace Drexel.DataSources.FolderData
     /// <summary>
     /// Represents information about a file.
     /// </summary>
-    public interface IFileInformation
+    public interface IFileInformation : IUniquelyIdentifiable
     {
         /// <summary>
         /// The name of the file.
@@ -19,14 +19,19 @@ namespace Drexel.DataSources.FolderData
         FilePath Path { get; }
 
         /// <summary>
+        /// The size of the file, in bytes.
+        /// </summary>
+        long Size { get; }
+
+        /// <summary>
         /// The creation date of the file.
         /// </summary>
-        DateTime? Created { get; }
+        DateTime Created { get; }
 
         /// <summary>
         /// The last modified date of the file.
         /// </summary>
-        DateTime? LastModified { get; }
+        DateTime LastModified { get; }
 
         /// <summary>
         /// Tries to read the file.

@@ -54,27 +54,22 @@ namespace Drexel.DataSources
                     }
                     else if (hashMatch)
                     {
-                        return ComparisonResults.Equivalent;
+                        return ComparisonResults.DifferentButEquivalent;
                     }
                     else if (instanceMatch)
                     {
-                        return ComparisonResults.Match | ComparisonResults.Invalidating;
+                        return ComparisonResults.Different | ComparisonResults.Invalidating;
                     }
                     else
                     {
-                        return ComparisonResults.Invalidating;
+                        return ComparisonResults.Different;
                     }
                 }
                 else
                 {
-                    if (selfIdentifier.Equals(otherIdentifier))
-                    {
-                        return ComparisonResults.Match;
-                    }
-                    else
-                    {
-                        return ComparisonResults.Invalidating;
-                    }
+                    // Since the other instance wasn't a wrapper, it's (probably) not a match. Also, since we have no
+                    // idea what the type we contain is, assume we need to invalidate the cache.
+                    return ComparisonResults.Different | ComparisonResults.Invalidating;
                 }
             }
         }

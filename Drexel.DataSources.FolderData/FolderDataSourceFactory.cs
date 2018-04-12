@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Globalization;
 using System.Linq;
 
 namespace Drexel.DataSources.FolderData
@@ -12,16 +13,46 @@ namespace Drexel.DataSources.FolderData
     [Export(typeof(IDataSourceFactory<IFileInformation>))]
     public class FolderDataSourceFactory : IDataSourceFactory<IFileInformation>
     {
+        private const string RootPathName = "Root Path";
+        private const string RootPathDescription = "The root path to monitor for changes.";
+        private const string ChangeFilterTicksName = "Change Filter Ticks";
+        private const string ChangeFilterTicksDescription = "The number of ticks to wait between change events firing.";
+        private const string FilterName = "Filter Name";
+        private const string FilterDescription = "The filter to apply to filenames when determining if it should be monitored.";
+        private const string InteractorFactoryName = "DirectoryInteractor Factory";
+        private const string InteractorFactoryDescription = "Overrides the default DirectoryInteractor factory.";
+        private const string WatcherFactoryName = "FolderDataWatcher Factory";
+        private const string WatcherFactoryDescription = "Overrides the default FolderDataWatcher factory.";
+
+        private const string FactorySuppliedButWrongType = "Expected a factory of type {0}, but got {1}.";
+
         private static IConfigurationRequirement path =
-            ConfigurationRequirement.Path(en_us.RootPathName, en_us.RootPathDescription, false);
+            ConfigurationRequirement.Path(
+                FolderDataSourceFactory.RootPathName,
+                FolderDataSourceFactory.RootPathDescription,
+                false);
         private static IConfigurationRequirement factoryChangeFilterTicks =
-            ConfigurationRequirement.Int64(en_us.ChangeFilterTicksName, en_us.ChangeFilterTicksDescription, true);
+            ConfigurationRequirement.Int64(
+                FolderDataSourceFactory.ChangeFilterTicksName,
+                FolderDataSourceFactory.ChangeFilterTicksDescription,
+                true);
         private static IConfigurationRequirement factoryFilter =
-            ConfigurationRequirement.String(en_us.FilterName, en_us.FilterDescription, true);
+            ConfigurationRequirement.String(
+                FolderDataSourceFactory.FilterName,
+                FolderDataSourceFactory.FilterDescription,
+                true);
+        private static IConfigurationRequirement interactorFactory =
+            new ConfigurationRequirement(
+                FolderDataSourceFactory.InteractorFactoryName,
+                FolderDataSourceFactory.InteractorFactoryDescription,
+                new ConfigurationRequirementType(typeof(IDirectoryInteractorFactory)),
+                false,
+                true,
+                x => FolderDataSourceFactory.CheckTypeMatch(typeof(IDirectoryInteractorFactory), x));
         private static IConfigurationRequirement watcherFactory =
             new ConfigurationRequirement(
-                en_us.ConfigurationWatcherFactoryName,
-                en_us.ConfigurationWatcherFactoryDescription,
+                FolderDataSourceFactory.WatcherFactoryName,
+                FolderDataSourceFactory.WatcherFactoryDescription,
                 new ConfigurationRequirementType(typeof(IFolderDataWatcherFactory)),
                 false,
                 true,
@@ -31,14 +62,6 @@ namespace Drexel.DataSources.FolderData
                     FolderDataSourceFactory.factoryChangeFilterTicks,
                     FolderDataSourceFactory.factoryFilter
                 });
-        private static IConfigurationRequirement interactorFactory =
-            new ConfigurationRequirement(
-                en_us.ConfigurationInteractorFactoryName,
-                en_us.ConfigurationInteractorFactoryDescription,
-                new ConfigurationRequirementType(typeof(IDirectoryInteractorFactory)),
-                false,
-                true,
-                x => FolderDataSourceFactory.CheckTypeMatch(typeof(IDirectoryInteractorFactory), x));
 
         private static IReadOnlyList<IConfigurationRequirement> requirements =
             new List<IConfigurationRequirement>()
@@ -90,9 +113,10 @@ namespace Drexel.DataSources.FolderData
                 {
                     return new ArgumentException(
                         string.Format(
-                            en_us.Culture,
-                            en_us.ConfigurationFactorySuppliedButWrongType,
-                            actual.ToString()));
+                            CultureInfo.InvariantCulture,
+                            FolderDataSourceFactory.FactorySuppliedButWrongType,
+                            expected.ToString(),
+                            actual.GetType().ToString()));
                 }
             }
 
