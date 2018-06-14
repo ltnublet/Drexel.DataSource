@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Globalization;
 using System.Linq;
+using Drexel.Configurables;
+using Drexel.Configurables.Contracts;
+using Drexel.Configurables.External;
 
 namespace Drexel.DataSources.FolderData
 {
@@ -27,7 +30,7 @@ namespace Drexel.DataSources.FolderData
         private const string FactorySuppliedButWrongType = "Expected a factory of type {0}, but got {1}.";
 
         private static IConfigurationRequirement path =
-            ConfigurationRequirement.Path(
+            ConfigurationRequirement.FilePath(
                 FolderDataSourceFactory.RootPathName,
                 FolderDataSourceFactory.RootPathDescription,
                 false);
@@ -47,16 +50,15 @@ namespace Drexel.DataSources.FolderData
                 FolderDataSourceFactory.InteractorFactoryDescription,
                 new ConfigurationRequirementType(typeof(IDirectoryInteractorFactory)),
                 false,
-                true,
-                x => FolderDataSourceFactory.CheckTypeMatch(typeof(IDirectoryInteractorFactory), x));
+                validator: (x, y, z) =>
+                    FolderDataSourceFactory.CheckTypeMatch(typeof(IDirectoryInteractorFactory), y));
         private static IConfigurationRequirement watcherFactory =
             new ConfigurationRequirement(
                 FolderDataSourceFactory.WatcherFactoryName,
                 FolderDataSourceFactory.WatcherFactoryDescription,
                 new ConfigurationRequirementType(typeof(IFolderDataWatcherFactory)),
                 false,
-                true,
-                x => FolderDataSourceFactory.CheckTypeMatch(typeof(IFolderDataWatcherFactory), x),
+                validator: (x, y, z) => FolderDataSourceFactory.CheckTypeMatch(typeof(IFolderDataWatcherFactory), y),
                 exclusiveWith: new IConfigurationRequirement[]
                 {
                     FolderDataSourceFactory.factoryChangeFilterTicks,

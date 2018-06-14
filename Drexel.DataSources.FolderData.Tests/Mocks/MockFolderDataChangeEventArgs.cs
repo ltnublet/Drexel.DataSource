@@ -1,4 +1,6 @@
-﻿namespace Drexel.DataSources.FolderData.Tests.Mocks
+﻿using Drexel.Configurables.External;
+
+namespace Drexel.DataSources.FolderData.Tests.Mocks
 {
     internal class MockFolderDataChangeEventArgs : IFolderDataChangeEventArgs
     {

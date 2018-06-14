@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Drexel.Configurables.External;
 
 namespace Drexel.DataSources.FolderData
 {
@@ -10,6 +11,17 @@ namespace Drexel.DataSources.FolderData
     /// </summary>
     public class DirectoryInteractor : IDirectoryInteractor
     {
+        private readonly IPathInteractor pathInteractor;
+
+        /// <summary>
+        /// Instantiates a new <see cref="DirectoryInteractor"/> instance.
+        /// </summary>
+        /// <param name="pathInteractor"></param>
+        public DirectoryInteractor(IPathInteractor pathInteractor)
+        {
+            this.pathInteractor = pathInteractor;
+        }
+
         /// <inheritdoc />
         public IEnumerable<FilePath> EnumerateFiles(FilePath path, SearchPattern pattern = null)
         {
@@ -35,7 +47,7 @@ namespace Drexel.DataSources.FolderData
                 enumerationResult = Directory.EnumerateFiles(path.Path, pattern.Pattern);
             }
 
-            return enumerationResult.Select(x => new FilePath(x));
+            return enumerationResult.Select(x => new FilePath(x, this.pathInteractor));
         }
 
         /// <inheritdoc />
@@ -63,7 +75,7 @@ namespace Drexel.DataSources.FolderData
                 enumerationResult = Directory.EnumerateDirectories(path.Path, pattern.Pattern);
             }
 
-            return enumerationResult.Select(x => new FilePath(x));
+            return enumerationResult.Select(x => new FilePath(x, this.pathInteractor));
         }
     }
 }

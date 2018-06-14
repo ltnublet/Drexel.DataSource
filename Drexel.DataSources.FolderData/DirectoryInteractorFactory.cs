@@ -1,4 +1,6 @@
-﻿namespace Drexel.DataSources.FolderData
+﻿using Drexel.Configurables.External;
+
+namespace Drexel.DataSources.FolderData
 {
     /// <summary>
     /// Represents an <see cref="IDirectoryInteractorFactory"/> implementation which produces
@@ -9,7 +11,7 @@
         /// <inheritdoc />
         public IDirectoryInteractor MakeInteractor()
         {
-            return new DirectoryInteractor();
+            return new DirectoryInteractor(new PathInteractor());
         }
     }
 }

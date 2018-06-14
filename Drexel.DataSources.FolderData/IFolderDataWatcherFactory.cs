@@ -1,4 +1,6 @@
-﻿namespace Drexel.DataSources.FolderData
+﻿using Drexel.Configurables.External;
+
+namespace Drexel.DataSources.FolderData
 {
     /// <summary>
     /// Represents a factory which produces <see cref="IFolderDataWatcher"/>s.

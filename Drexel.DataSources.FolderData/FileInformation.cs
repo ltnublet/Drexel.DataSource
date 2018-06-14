@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Drexel.Configurables.External;
 
 namespace Drexel.DataSources.FolderData
 {
@@ -32,7 +33,7 @@ namespace Drexel.DataSources.FolderData
             FileInfo info = new FileInfo(path.Path);
 
             this.Name = info.Name;
-            this.Path = new FilePath(info.FullName);
+            this.Path = path;
             this.Size = info.Length;
             this.Created = info.CreationTimeUtc;
             this.LastModified = info.LastWriteTimeUtc;
@@ -108,7 +109,7 @@ namespace Drexel.DataSources.FolderData
             }
         }
 
-        public IUniqueIdentifier GetIdentifier() => this.Path;
+        public IUniqueIdentifier GetIdentifier() => new UniquePath(this.Path);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage(
             "Microsoft.Design",

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
+using Drexel.Configurables.Contracts;
+using Drexel.Configurables.External;
 using Drexel.DataSources.FolderData.Tests.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -12,19 +13,20 @@ namespace Drexel.DataSources.FolderData.Tests
     public class FolderDataSourceTests
     {
         private const string RootPath = "Root Path";
+        private static MockPathInteractor pathInteractor = new MockPathInteractor(x => x, x => true);
 
         private static readonly IReadOnlyCollection<FilePath> SuppliedFiles = new FilePath[]
         {
-            new FilePath("fileOne.txt"),
-            new FilePath("fileTwo.txt"),
-            new FilePath("fileThree.txt")
+            new FilePath("fileOne.txt", FolderDataSourceTests.pathInteractor),
+            new FilePath("fileTwo.txt", FolderDataSourceTests.pathInteractor),
+            new FilePath("fileThree.txt", FolderDataSourceTests.pathInteractor)
         };
 
         private static readonly IReadOnlyCollection<FilePath> SuppliedDirectories = new FilePath[]
         {
-            new FilePath("Directory One"),
-            new FilePath("Directory Two"),
-            new FilePath("Directory Three")
+            new FilePath("Directory One", FolderDataSourceTests.pathInteractor),
+            new FilePath("Directory Two", FolderDataSourceTests.pathInteractor),
+            new FilePath("Directory Three", FolderDataSourceTests.pathInteractor)
         };
 
         [TestMethod]
@@ -102,7 +104,8 @@ namespace Drexel.DataSources.FolderData.Tests
                                 string.Format(
                                     CultureInfo.InvariantCulture,
                                     addedPathFormatString,
-                                    counter)),
+                                    counter),
+                                FolderDataSourceTests.pathInteractor),
                             DataSourceChangeEventType.Added,
                             null));
                 }
@@ -116,7 +119,8 @@ namespace Drexel.DataSources.FolderData.Tests
                                 string.Format(
                                     CultureInfo.InvariantCulture,
                                     changedPathFormatString,
-                                    counter)),
+                                    counter),
+                                FolderDataSourceTests.pathInteractor),
                             DataSourceChangeEventType.Changed,
                             null));
                 }
@@ -130,7 +134,8 @@ namespace Drexel.DataSources.FolderData.Tests
                                 string.Format(
                                     CultureInfo.InvariantCulture,
                                     movedPathFormatString,
-                                    counter)),
+                                    counter),
+                                FolderDataSourceTests.pathInteractor),
                             DataSourceChangeEventType.Moved,
                             null));
                 }
@@ -144,7 +149,8 @@ namespace Drexel.DataSources.FolderData.Tests
                                 string.Format(
                                     CultureInfo.InvariantCulture,
                                     removedPathFormatString,
-                                    counter)),
+                                    counter),
+                                FolderDataSourceTests.pathInteractor),
                             DataSourceChangeEventType.Removed,
                             null));
                 }
@@ -194,7 +200,9 @@ namespace Drexel.DataSources.FolderData.Tests
             IReadOnlyDictionary<IConfigurationRequirement, object> bindings =
                 new Dictionary<IConfigurationRequirement, object>()
                 {
-                    [factory.Requirements[0]] = new FilePath(FolderDataSourceTests.RootPath),
+                    [factory.Requirements[0]] = new FilePath(
+                        FolderDataSourceTests.RootPath,
+                        FolderDataSourceTests.pathInteractor),
                     [factory.Requirements[3]] = mockFolderDataWatcherFactory,
                     [factory.Requirements[4]] = mockDirectoryInteractorFactory
                 };

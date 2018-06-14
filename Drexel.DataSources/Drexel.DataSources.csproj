@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Drexel.DataSources</RootNamespace>
     <AssemblyName>Drexel.DataSources</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,12 +35,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\StrongNameKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Drexel.Configurables, Version=0.2.6738.39649, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Drexel.Configurables.0.2.6738\lib\Net472\Drexel.Configurables.dll</HintPath>
+    </Reference>
+    <Reference Include="Drexel.Configurables.Contracts, Version=0.1.6738.24480, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Drexel.Configurables.Contracts.0.1.6738.1\lib\Net472\Drexel.Configurables.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="Drexel.Configurables.External, Version=0.1.6738.24478, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Drexel.Configurables.External.0.1.6738.1\lib\Net472\Drexel.Configurables.External.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,22 +60,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Binding.cs" />
-    <Compile Include="BoundConfiguration.cs" />
     <Compile Include="ComparisonResults.cs" />
     <Compile Include="CompositeDataSource.cs" />
-    <Compile Include="ConfigurationRequirement.cs" />
-    <Compile Include="ConfigurationRequirementType.cs" />
     <Compile Include="DataSourceChangeEventType.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="IBinding.cs" />
-    <Compile Include="IConfigurable.cs" />
-    <Compile Include="IBoundConfiguration.cs" />
     <Compile Include="IDataSourceChangeEventArgs.cs" />
-    <Compile Include="IConfigurationRequirement.cs" />
     <Compile Include="IDataSource.cs" />
     <Compile Include="IDataSourceFactory.cs" />
-    <Compile Include="FilePath.cs" />
     <Compile Include="IUniqueIdentifier.cs" />
     <Compile Include="IUniquelyIdentifiable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

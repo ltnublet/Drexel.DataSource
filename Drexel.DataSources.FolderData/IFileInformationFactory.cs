@@ -1,4 +1,6 @@
-﻿namespace Drexel.DataSources.FolderData
+﻿using Drexel.Configurables.External;
+
+namespace Drexel.DataSources.FolderData
 {
     /// <summary>
     /// Represents a class which produces <see cref="IFileInformation"/>s from <see cref="FilePath"/>s.

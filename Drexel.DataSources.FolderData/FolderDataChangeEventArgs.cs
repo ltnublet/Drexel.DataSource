@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Drexel.Configurables.External;
 
 namespace Drexel.DataSources.FolderData
 {
@@ -46,7 +47,7 @@ namespace Drexel.DataSources.FolderData
             }
 
             this.Name = e.Name;
-            this.Path = new FilePath(e.FullPath);
+            this.Path = new FilePath(e.FullPath, new PathInteractor());
         }
 
         /// <inheritdoc />

@@ -1,4 +1,5 @@
 ﻿using System;
+using Drexel.Configurables.Contracts;
 
 namespace Drexel.DataSources
 {
